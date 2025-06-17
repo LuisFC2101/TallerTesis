@@ -14,12 +14,13 @@ import { publicacionValidation } from "../validations/publicacion.validation.js"
 
 export async function createPublicacion(req, res) {
   try {
-    const userId = req.user.id;
-    const datos = { ...req.body, usuarioId: userId };
-
-    const { error } = publicacionValidation.validate(datos);
+    
+    const { error } = publicacionValidation.validate(req.body);
     if (error)
       return handleErrorClient(res, 400, "Validación fallida", error.message);
+
+    
+    const datos = { ...req.body, usuarioId: req.user.id };
 
     const [publicacion, serviceError] = await createPublicacionService(datos);
     if (serviceError)
