@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, useContext, } from 'react';
+
 
 const AuthContext = createContext();
 
@@ -7,19 +7,12 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
-    const navigate = useNavigate();
     const user = JSON.parse(sessionStorage.getItem('usuario')) || '';
-    const isAuthenticated = user ? true : false;
+    const isAuthenticated = !!user;
 
-useEffect(() => {
-    if (!isAuthenticated) {
-        navigate('/auth');
-    }
-}, [isAuthenticated, navigate]);
-
-return (
-    <AuthContext.Provider value={{ isAuthenticated, user }}>
-        {children}
-    </AuthContext.Provider>
-);
+    return (
+        <AuthContext.Provider value={{ isAuthenticated, user }}>
+            {children}
+        </AuthContext.Provider>
+    );
 }

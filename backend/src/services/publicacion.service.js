@@ -61,7 +61,7 @@ export async function updatePublicacionService(id, data, userId) {
   try {
     const publicacionRepository = AppDataSource.getRepository(Publicacion);
 
-    // Buscar publicación
+    // Buscar publicacion
     const publicacion = await publicacionRepository.findOne({
       where: { id },
       relations: ["usuario"]
@@ -71,7 +71,7 @@ export async function updatePublicacionService(id, data, userId) {
       return [null, "Publicación no encontrada"];
     }
 
-    // Verificar que el usuario dueño de la publicación sea quien la modifica
+    // Verificar que el usuario dueño de la publicacion sea quien la modifica
     if (publicacion.usuario.id !== userId) {
       return [null, "No tienes permiso para editar esta publicación"];
     }
@@ -113,5 +113,56 @@ export async function deletePublicacionService(publicacionId, userId) {
   } catch (error) {
     console.error("Error al eliminar publicación:", error);
     return [null, "Error interno al eliminar la publicación"];
+  }
+}
+
+export async function getPublicacionesFiltradasService({ categoriaId, query }) {
+  try {
+    const publicacionRepository = AppDataSource.getRepository(Publicacion);
+
+    let qb = publicacionRepository
+      .createQueryBuilder("publicacion")
+      .leftJoinAndSelect("publicacion.categoria", "categoria")
+      .leftJoinAndSelect("publicacion.emprendimiento", "emprendimiento")
+      .leftJoinAndSelect("publicacion.imagenes", "imagenes")
+      .orderBy("publicacion.createdAt", "DESC");
+
+    if (categoriaId) {
+      qb = qb.andWhere("publicacion.categoria.id = :categoriaId", { categoriaId });
+    }
+
+    if (query) {
+      const lowerQuery = `%${query.toLowerCase()}%`;
+      qb = qb.andWhere(
+        "(LOWER(publicacion.titulo) LIKE :query OR LOWER(publicacion.descripcion) LIKE :query)",
+        { query: lowerQuery }
+      );
+    }
+
+    const publicaciones = await qb.getMany();
+    return [publicaciones, null];
+  } catch (error) {
+    console.error("Error al obtener publicaciones públicas:", error);
+    return [null, "Error interno del servidor"];
+  }
+}
+
+export async function getPublicacionByIdService(id) {
+  try {
+    const publicacionRepository = AppDataSource.getRepository(Publicacion);
+
+    const publicacion = await publicacionRepository.findOne({
+      where: { id },
+      relations: ["usuario", "categoria", "emprendimiento", "imagenes"],
+    });
+
+    if (!publicacion) {
+      return [null, "Publicación no encontrada"];
+    }
+
+    return [publicacion, null];
+  } catch (error) {
+    console.error("Error al obtener publicación por ID:", error);
+    return [null, "Error interno del servidor"];
   }
 }

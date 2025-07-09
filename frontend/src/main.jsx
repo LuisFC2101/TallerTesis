@@ -8,36 +8,60 @@ import Error404 from '@pages/Error404';
 import Root from '@pages/Root';
 import ProtectedRoute from '@components/ProtectedRoute';
 import '@styles/styles.css';
+import PublicacionDetalle from './pages/PublicacionDetalle';
+import SeleccionRol from '@pages/SeleccionRol';
+import RegisterEmprendedor from '@pages/RegisterEmprendedor';
+
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root/>,
-    errorElement: <Error404/>,
-    children: [
-      {
-        path: '/home',
-        element: <Home/>
-      },
-      {
-        path: '/users',
-        element: (
+{
+  path: '/',
+  element: <Root />, 
+  errorElement: <Error404 />,
+  children: [
+    {
+      index: true,
+      element: <Home />
+    },
+    {
+      path: 'home',
+      element: <Home />
+    },
+    {
+      path: 'users',
+      element: (
         <ProtectedRoute allowedRoles={['administrador']}>
           <Users />
         </ProtectedRoute>
-        ),
-    }
-    ]
-  },
+      )
+    },
+    {
+  path: 'publicacion/:id',
+  element: <PublicacionDetalle />
+  }
+
+  ]
+},
+
   {
     path: '/auth',
-    element: <Login/>
+    element: <Login />
   },
   {
     path: '/register',
-    element: <Register/>
-  }
-])
+    element: <Register />
+  },
+  {
+    path: '/seleccion-rol',
+    element: <SeleccionRol />
+  },
+  {
+  path: '/register/emprendedor',
+  element: <RegisterEmprendedor />
+}
+
+]);
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <RouterProvider router={router}/>

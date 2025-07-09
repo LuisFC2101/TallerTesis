@@ -1,0 +1,50 @@
+.publicaciones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.publicacion-card {
+  background-color: #2b2b2b;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.publicacion-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.publicacion-imagen {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+}
+
+.publicacion-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+
+.publicacion-card p {
+  margin: 0.2rem 0;
+  color: #ccc;
+}
+
+.precio {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.ubicacion {
+  color: #aaa;
+  font-style: italic;
+}
