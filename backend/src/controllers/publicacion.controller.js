@@ -2,6 +2,8 @@
 import {
   createPublicacionService,
   deletePublicacionService,
+  getPublicacionByIdService,
+  getPublicacionesFiltradasService,
   getPublicacionesService,
   updatePublicacionService,
 } from "../services/publicacion.service.js";
@@ -78,4 +80,36 @@ export async function deletePublicacion(req, res) {
   } catch (error) {
     handleErrorServer(res, 500, error.message);
   }
+}
+
+export async function getPublicacionesPublicas(req, res) {
+  try {
+    const { categoriaId, query } = req.query;
+
+    const [publicaciones, error] = await getPublicacionesFiltradasService({
+      categoriaId,
+      query,
+    });
+      console.log("📦 Publicaciones encontradas:", publicaciones); 
+    if (error) {
+      return res.status(500).json({ message: error });
+    }
+
+    return res.json(publicaciones);
+  } catch (err) {
+    console.error("Error en getPublicacionesPublicas:", err);
+    return res.status(500).json({ message: "Error interno del servidor" });
+  }
+}
+
+
+
+export async function getPublicacionById(req, res) {
+  const { id } = req.params;
+
+  const [publicacion, error] = await getPublicacionByIdService(parseInt(id));
+
+  if (error) return res.status(404).json({ message: error });
+
+  return res.status(200).json(publicacion);
 }
