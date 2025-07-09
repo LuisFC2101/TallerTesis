@@ -1,4 +1,4 @@
-import fondoLleu from '../assets/LleuLleu.jpg';
+
 import { useNavigate } from 'react-router-dom';
 import '@styles/hero.css';
 
@@ -8,7 +8,8 @@ const HeroSection = () => {
   return (
     <section
       className="hero"
-      style={{ backgroundImage: `url(${fondoLleu})` }}
+      style={{ backgroundImage: 'url("/public/LleuLleu.jpg")' }}
+
     >
       <div className="hero-overlay">
         <h1 className="hero-title">Explora el paraíso del Lago Lleu Lleu</h1>
