@@ -1,0 +1,66 @@
+.detalle-container {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+}
+
+.detalle-card {
+  max-width: 800px;
+  width: 100%;
+  background-color: #ffffffcc;
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.detalle-titulo {
+  font-size: 2rem;
+  color: #003366;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.detalle-imagen img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.detalle-info p {
+  font-size: 1.05rem;
+  margin-bottom: 0.8rem;
+  color: #333;
+}
+
+.detalle-info strong {
+  color: #003366;
+}
+
+.btn-login {
+  background-color: #003366;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.btn-login:hover {
+  background-color: #005299;
+}
+
+.mensaje-error,
+.mensaje-cargando {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #555;
+}
