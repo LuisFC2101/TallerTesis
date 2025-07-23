@@ -3,6 +3,7 @@ import { Router } from "express";
 import {
   createPublicacion,
   deletePublicacion,
+  getMisPublicaciones,
   getPublicacionById,
   getPublicaciones,
   getPublicacionesPublicas,
@@ -18,4 +19,5 @@ router.patch("/publicaciones/:id", authenticateJwt, updatePublicacion);
 router.delete("/publicaciones/:id", authenticateJwt, deletePublicacion);
 router.get("/public", getPublicacionesPublicas);
 router.get("/public/:id", getPublicacionById);
+router.get("/mias", authenticateJwt, getMisPublicaciones);
 export default router;

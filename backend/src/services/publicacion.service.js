@@ -166,3 +166,23 @@ export async function getPublicacionByIdService(id) {
     return [null, "Error interno del servidor"];
   }
 }
+
+
+export async function getMisPublicacionesService(userId) {
+  try {
+    const publicacionRepository = AppDataSource.getRepository(Publicacion);
+
+    const publicaciones = await publicacionRepository.find({
+      where: {
+        usuario: { id: userId }
+      },
+      relations: ["categoria", "emprendimiento", "imagenes"],
+      order: { createdAt: "DESC" }
+    });
+
+    return [publicaciones, null];
+  } catch (error) {
+    console.error("Error al obtener publicaciones del usuario:", error);
+    return [null, "Error interno del servidor"];
+  }
+}

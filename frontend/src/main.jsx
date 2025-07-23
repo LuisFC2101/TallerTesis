@@ -11,7 +11,9 @@ import '@styles/styles.css';
 import PublicacionDetalle from './pages/PublicacionDetalle';
 import SeleccionRol from '@pages/SeleccionRol';
 import RegisterEmprendedor from '@pages/RegisterEmprendedor';
-
+import CrearPublicacion from '@pages/CrearPublicacion';
+import MisPublicaciones from './pages/MisPublicaciones';
+import EditarPublicacion from './pages/EditarPublicacion';
 
 const router = createBrowserRouter([
 {
@@ -38,8 +40,31 @@ const router = createBrowserRouter([
     {
   path: 'publicacion/:id',
   element: <PublicacionDetalle />
+  },
+  { 
+    path: '/crear-publicacion',
+    element: (
+    <ProtectedRoute allowedRoles={['emprendedor']}>
+      <CrearPublicacion />
+    </ProtectedRoute>
+  )
+  },
+  {
+    path:'/mis-publicaciones',
+    element: (
+    <ProtectedRoute allowedRoles={['emprendedor']}>
+      <MisPublicaciones />
+    </ProtectedRoute>
+    )
+  },
+  {
+    path: '/editar-publicacion/:id',
+    element: (
+      <ProtectedRoute allowedRoles={['emprendedor']}>
+        <EditarPublicacion />
+      </ProtectedRoute>
+    )
   }
-
   ]
 },
 
