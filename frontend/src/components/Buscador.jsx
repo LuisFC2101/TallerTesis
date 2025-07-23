@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/buscador.css";
+import SearchIcon from "../assets/SearchIcon.svg";
 
 const Buscador = ({
   publicaciones = [],
@@ -40,7 +41,7 @@ const Buscador = ({
   return (
     <div className="buscador-container">
       <div className="input-con-icono">
-        <img src="/src/assets/SearchIcon.svg" alt="Buscar" className="icono-busqueda" />
+        <img src={SearchIcon} alt="Buscar" className="icono-busqueda" />
         <input
           type="text"
           className="buscador-input"

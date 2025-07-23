@@ -202,6 +202,29 @@
   border-bottom-left-radius: 40px;
 }
 
+.volver-inicio {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.volver-inicio a {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  background-color: #8480aa;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: inline-block;
+}
+
+.volver-inicio a:hover {
+  background-color: #686c80;
+  color: #4CAF50;
+}
+
+
 
 /* RESPONSIVo */
 @media (max-width: 768px) {
