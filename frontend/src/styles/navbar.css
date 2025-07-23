@@ -2,48 +2,55 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #003049; /* azul oscuro */
-  padding: 10px 20px;
+  background-color: #0c4b06;
+  padding: 12px 24px;
   color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .navbar-left .navbar-brand {
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   font-weight: 800;
-  color: #4CAF50; /* verde naturaleza */
+  color: #4CAF50;
   text-decoration: none;
   transition: transform 0.2s ease-in-out, color 0.2s;
 }
 
 .navbar-left .navbar-brand:hover {
-  transform: scale(1.1);
-  color: #66bb6a; /* verde más claro al hacer hover */
-  text-decoration: none; /* sin subrayado */
-}
-
-.navbar-left .navbar-brand:active {
-  text-decoration: none;
-  transform: scale(0.97);
+  transform: scale(1.08);
+  color: #66bb6a;
 }
 
 .nav-menu {
   list-style: none;
   display: flex;
-  gap: 20px;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-menu li a {
   color: white;
   text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .nav-menu li a:hover {
-  text-decoration: underline;
+  color: #4CAF50;
 }
 
 .logout-btn {
   background: none;
   border: none;
   color: white;
+  font-weight: 500;
   cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0;
+}
+
+.logout-btn:hover {
+  color: #963029; 
 }

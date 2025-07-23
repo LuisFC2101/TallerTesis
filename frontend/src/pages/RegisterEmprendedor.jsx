@@ -4,7 +4,7 @@ import Form from "@components/Form";
 import { showErrorAlert, showSuccessAlert } from '@helpers/sweetAlert.js';
 import axios from '@services/root.service';
 import '@styles/form.css';
-import { getComunas } from '@services/Comunas/getComunas.js';
+import  getComunas  from '@services/Comunas/getComunas.js';
 
 const RegisterEmprendedor = () => {
   const navigate = useNavigate();
