@@ -1,7 +1,8 @@
 
 import { useNavigate } from 'react-router-dom';
 import '@styles/hero.css';
-import fondoHero from '../assets/LleuLleu.jpg';
+
+const fondoHero = "/LLeuLleu.jpg";
 
 
 const HeroSection = () => {
