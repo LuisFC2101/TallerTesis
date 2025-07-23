@@ -41,6 +41,19 @@ const Navbar = () => {
           <li><NavLink to="/users">Usuarios</NavLink></li>
         )}
 
+        {user?.rol === 'emprendedor' && (
+         <li>
+          <NavLink to="/crear-publicacion">Crear publicación</NavLink>
+        </li>
+        )}
+        {user?.rol === 'emprendedor' && (
+            <li>
+            <NavLink to="/mis-publicaciones">Mis publicaciones</NavLink>
+            </li>
+        )}
+
+
+
         {user && (
           <li>
             <button className="logout-btn" onClick={handleLogout}>

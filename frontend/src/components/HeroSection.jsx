@@ -1,6 +1,8 @@
 
 import { useNavigate } from 'react-router-dom';
 import '@styles/hero.css';
+import fondoHero from '../assets/LleuLleu.jpg';
+
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -8,7 +10,8 @@ const HeroSection = () => {
   return (
     <section
       className="hero"
-      style={{ backgroundImage: 'url("/public/LleuLleu.jpg")' }}
+      style={{ backgroundImage: `url(${fondoHero})` }}
+
 
     >
       <div className="hero-overlay">

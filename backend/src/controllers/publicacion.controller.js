@@ -2,6 +2,7 @@
 import {
   createPublicacionService,
   deletePublicacionService,
+  getMisPublicacionesService,
   getPublicacionByIdService,
   getPublicacionesFiltradasService,
   getPublicacionesService,
@@ -113,3 +114,17 @@ export async function getPublicacionById(req, res) {
 
   return res.status(200).json(publicacion);
 }
+
+
+
+export const getMisPublicaciones = async (req, res) => {
+  const userId = req.user.id;
+
+  const [publicaciones, error] = await getMisPublicacionesService(userId);
+
+  if (error) {
+    return res.status(500).json({ message: error });
+  }
+
+  res.json(publicaciones);
+};

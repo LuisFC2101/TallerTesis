@@ -1,0 +1,61 @@
+.form-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  width: 100%;
+}
+
+.form-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 51, 102, 0.2);
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-card h1 {
+  color: #003366;
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form-card input,
+.form-card select,
+.form-card textarea {
+  padding: 12px;
+  border: 2px solid #003366;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #003366;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #f9fcff;
+}
+
+.form-card input::placeholder,
+.form-card textarea::placeholder {
+  color: rgba(0, 51, 102, 0.3);
+}
+
+.form-card button {
+  background-color: #003366;
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-card button:hover {
+  background-color: #ffffff;
+  color: #003366;
+  border: 2px solid #003366;
+}
