@@ -3,6 +3,6 @@ import { getComunasController } from "../controllers/comuna.controller.js";
 
 const router = Router();
 
-router.get("/", getComunasController);
+router.get("/comunas", getComunasController);
 
 export default router;

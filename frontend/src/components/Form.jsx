@@ -24,7 +24,7 @@ const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundCo
     return (
         <form
             className="form"
-            style={{ backgroundColor: backgroundColor }}
+            style={backgroundColor ? { backgroundColor } : undefined}
             onSubmit={handleSubmit(onFormSubmit)}
             autoComplete="off"
         >

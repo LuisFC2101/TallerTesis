@@ -15,8 +15,8 @@ router.use("/auth", authRoutes)
 router.use("/user", userRoutes)
 router.use("/", solicitudRoutes)
 router.use("/", publicacionRoutes)
-router.use("/comunas", comunaRoutes)
-router.use("/categorias", categoriaRoutes)
+router.use("/", comunaRoutes)
+router.use("/", categoriaRoutes)
 router.use("/emprendimientos", emprendimientoRoutes)
 
 export default router;
