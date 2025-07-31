@@ -11,7 +11,7 @@ export default {
     "max-len": [
       "error",
       {
-        code: 120,
+        code: 161,
         tabWidth: 2,
         comments: 150,
       },

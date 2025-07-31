@@ -15,14 +15,21 @@ const Emprendimiento = new EntitySchema({
     usuario: {
       type: "many-to-one",
       target: "User",
-      joinColumn: true,
-      eager: true
+      joinColumn: {
+        name: "usuarioId",
+        
+      },
+      eager: true,
+      onDelete: "SET NULL"
     },
     comuna: {
       type: "many-to-one",
       target: "Comuna",
-      joinColumn: true,
-      eager: true
+      joinColumn: {
+        name: "comunaId",
+      },
+      eager: true,
+      onDelete: "CASCADE"
     }
   }
 });
