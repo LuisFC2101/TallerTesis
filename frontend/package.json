@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview --port=443"
+    "preview": "npx vite preview --port=443"
   },
   "dependencies": {
     "@formkit/tempo": "^0.1.2",
