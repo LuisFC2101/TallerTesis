@@ -1,4 +1,3 @@
-# Dockerfile para frontend
 FROM node:18 as builder
 
 WORKDIR /app
@@ -11,8 +10,11 @@ RUN npm run build
 
 FROM node:18
 WORKDIR /app
+
 COPY --from=builder /app /app
-RUN npm install -g vite serve
+COPY --from=builder /app/node_modules /app/node_modules
+
+RUN npm install -g serve
 
 EXPOSE 4173
 
