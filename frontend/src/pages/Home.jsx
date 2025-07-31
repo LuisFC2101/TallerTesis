@@ -16,6 +16,8 @@ export default function Home() {
   const [comunas, setComunas] = useState([]);
   const [error, setError] = useState(null);
   const [showInfoPopup, setShowInfoPopup] = useState(false);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const publicacionesPorPagina = 12;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,6 +39,11 @@ export default function Home() {
 
     cargarDatos();
   }, []);
+
+  const indexUltima = paginaActual * publicacionesPorPagina;
+  const indexPrimera = indexUltima - publicacionesPorPagina;
+  const publicacionesPaginas = publicacionesFiltradas.slice(indexPrimera, indexUltima);
+  const totalPaginas = Math.ceil(publicacionesFiltradas.length / publicacionesPorPagina);
 
   return (
     <div className="home-container">
@@ -62,8 +69,8 @@ export default function Home() {
       {error && <p className="error">{error}</p>}
 
       <div id="publicaciones" className="publicaciones-grid">
-        {Array.isArray(publicacionesFiltradas) && publicacionesFiltradas.length > 0 ? (
-          publicacionesFiltradas.map((publi) => (
+        {Array.isArray(publicacionesPaginas) && publicacionesPaginas.length > 0 ? (
+          publicacionesPaginas.map((publi) => (
             <div key={publi.id} className="publicacion-card">
               <img
                 src={publi.imagenes?.[0]?.url || "https://via.placeholder.com/300x200"}
@@ -88,6 +95,34 @@ export default function Home() {
           <p>No hay publicaciones disponibles.</p>
         )}
       </div>
+
+      {totalPaginas > 1 && (
+        <div className="paginacion">
+          {paginaActual > 1 && (
+            <button className="pagina-btn" onClick={() => setPaginaActual(paginaActual - 1)}>
+              Anterior
+            </button>
+          )}
+
+          {Array.from({ length: totalPaginas }, (_, i) => i + 1)
+            .filter((n) => n >= paginaActual && n < paginaActual + 3)
+            .map((num) => (
+              <button
+                key={num}
+                className={`pagina-btn ${paginaActual === num ? 'activa' : ''}`}
+                onClick={() => setPaginaActual(num)}
+              >
+                {num}
+              </button>
+            ))}
+
+          {paginaActual + 2 < totalPaginas && (
+            <button className="pagina-btn" onClick={() => setPaginaActual(paginaActual + 1)}>
+              Siguiente
+            </button>
+          )}
+        </div>
+      )}
 
       <section className="cta-registro">
         <h2 className="cta-titulo">¿Eres emprendedor de la zona?</h2>

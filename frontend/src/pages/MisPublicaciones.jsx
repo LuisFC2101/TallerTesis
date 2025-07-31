@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import getMisPublicaciones from '../services/Publicaciones/getMisPublicaciones';
 import deletePublicacion from '../services/Publicaciones/deletePublicacion';
-import '@styles/misPublicaciones.css'; // crea este archivo para los estilos
+import '@styles/misPublicaciones.css'; 
 
 const MisPublicaciones = () => {
   const [publicaciones, setPublicaciones] = useState([]);
@@ -62,6 +62,7 @@ const MisPublicaciones = () => {
                 <p>{publi.descripcion}</p>
                 <p><strong>Precio:</strong> ${publi.precio}</p>
                 <p><strong>Ubicación:</strong> {publi.ubicacion}</p>
+                <p><strong>Visitas:</strong> {publi.estadistica?.visitas ?? 0}</p>
               </div>
               <div className="botones-publicacion">
                 <button className="btn-editar" onClick={() => navigate(`/editar-publicacion/${publi.id}`)}>

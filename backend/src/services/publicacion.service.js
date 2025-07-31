@@ -2,13 +2,15 @@
 import { AppDataSource } from "../config/configDb.js";
 import Publicacion from "../entity/publicacion.entity.js";
 import Imagen from "../entity/imagen.entity.js";
+import EstadisticaPublicacion from "../entity/estadisticas.entity.js";
 
 export async function createPublicacionService(data) {
   try {
     const publicacionRepository = AppDataSource.getRepository(Publicacion);
     const imagenRepository = AppDataSource.getRepository(Imagen);
+    const estadisticaRepository = AppDataSource.getRepository(EstadisticaPublicacion);
 
-    // Crear la publicación
+    
     const nuevaPublicacion = publicacionRepository.create({
       titulo: data.titulo,
       descripcion: data.descripcion,
@@ -21,7 +23,16 @@ export async function createPublicacionService(data) {
 
     await publicacionRepository.save(nuevaPublicacion);
 
-    // Asociar imágenes si existen
+    // se crea la estadistica de la publicación
+    const nuevaEstadistica = estadisticaRepository.create({
+      visitas: 0,
+      contactos_recibidos: 0,
+      publicacion: nuevaPublicacion
+    });
+
+    await estadisticaRepository.save(nuevaEstadistica);
+
+    
     if (data.imagenes && Array.isArray(data.imagenes)) {
       const imagenesAGuardar = data.imagenes.map((url) =>
         imagenRepository.create({ url, publicacion: nuevaPublicacion })
@@ -29,7 +40,7 @@ export async function createPublicacionService(data) {
       await imagenRepository.save(imagenesAGuardar);
     }
 
-    // Cargar relaciones de la publicación para devolverla completa
+    
     const publicacionConRelaciones = await publicacionRepository.findOne({
       where: { id: nuevaPublicacion.id },
       relations: ["categoria", "emprendimiento", "imagenes"],
@@ -46,7 +57,7 @@ export async function getPublicacionesService() {
   try {
     const publicacionRepository = AppDataSource.getRepository(Publicacion);
     const publicaciones = await publicacionRepository.find({
-      relations: ["categoria", "emprendimiento", "imagenes"],
+      relations: ["categoria", "emprendimiento", "imagenes", "estadistica"],
       order: { createdAt: "DESC" },
     });
 
@@ -61,7 +72,7 @@ export async function updatePublicacionService(id, data, userId) {
   try {
     const publicacionRepository = AppDataSource.getRepository(Publicacion);
 
-    // Buscar publicacion
+    
     const publicacion = await publicacionRepository.findOne({
       where: { id },
       relations: ["usuario"]
@@ -71,12 +82,12 @@ export async function updatePublicacionService(id, data, userId) {
       return [null, "Publicación no encontrada"];
     }
 
-    // Verificar que el usuario dueño de la publicacion sea quien la modifica
+    
     if (publicacion.usuario.id !== userId) {
       return [null, "No tienes permiso para editar esta publicación"];
     }
 
-    // Actualizar solo los campos permitidos
+    
     publicacion.titulo = data.titulo || publicacion.titulo;
     publicacion.descripcion = data.descripcion || publicacion.descripcion;
     publicacion.precio = data.precio || publicacion.precio;
@@ -88,8 +99,6 @@ export async function updatePublicacionService(id, data, userId) {
     return [null, "Error interno del servidor"];
   }
 }
-
-
 
 export async function deletePublicacionService(publicacionId, userId) {
   try {
@@ -166,7 +175,6 @@ export async function getPublicacionByIdService(id) {
     return [null, "Error interno del servidor"];
   }
 }
-
 
 export async function getMisPublicacionesService(userId) {
   try {

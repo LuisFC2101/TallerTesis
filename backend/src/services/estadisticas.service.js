@@ -1,25 +1,22 @@
 import { AppDataSource } from "../config/configDb.js";
-import  EstadisticaPublicacion  from "../entity/estadisticas.entity.js";
-import  Publicacion  from "../entity/publicacion.entity.js";
-import  User  from "../entity/user.entity.js";
+import EstadisticaPublicacion from "../entity/estadisticas.entity.js";
 
-export const getUsuariosMasActivosService = async () => {
-  const result = await AppDataSource
-    .getRepository(EstadisticaPublicacion)
-    .createQueryBuilder("estadistica")
-    .innerJoin("estadistica.publicacion", "publicacion")
-    .innerJoin("publicacion.usuario", "usuario")
-    .select(`"usuario"."id"`, "usuarioId")
-    .addSelect(`"usuario"."email"`, "email")
-    .addSelect(`"usuario"."nombreCompleto"`, "nombre")
-    .addSelect(`SUM("estadistica"."visitas")`, "totalVisitas")
-    .addSelect(`SUM("estadistica"."contactos_recibidos")`, "totalContactos")
-    .groupBy(`"usuario"."id"`)
-    .addGroupBy(`"usuario"."email"`)
-    .addGroupBy(`"usuario"."nombreCompleto"`)
-    .orderBy(`"totalVisitas"`, "DESC")
+export const registrarVisitaService = async (publicacionId) => {
+  const repo = AppDataSource.getRepository(EstadisticaPublicacion);
 
-    .getRawMany();
+  const estadistica = await repo.findOne({
+    where: { publicacion: { id: publicacionId } },
+    relations: ["publicacion"]
+  });
 
-  return result;
+  if (!estadistica) {
+    throw new Error("No se encontró estadística para esta publicación");
+  }
+
+  estadistica.visitas += 1;
+  estadistica.ultima_actualizacion = new Date();
+
+  await repo.save(estadistica);
+
+  return { message: "Visita registrada correctamente" };
 };
