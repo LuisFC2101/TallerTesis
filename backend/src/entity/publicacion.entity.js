@@ -39,9 +39,14 @@ const Publicacion = new EntitySchema({
       joinColumn: true,
       eager: true
     },
-    
-}
-
+    estadistica: {
+      type: "one-to-one",
+      target: "EstadisticaPublicacion",
+      inverseSide: "publicacion",
+      eager: true,
+      cascade: true
+    }
+  }
 });
 
 export default Publicacion;

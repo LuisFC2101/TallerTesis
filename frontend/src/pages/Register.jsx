@@ -19,7 +19,7 @@ const Register = () => {
 
 	const registerSubmit = async (data) => {
 		try {
-			const response = await register({ ...data, rol }); // Se agrega el rol aquí
+			const response = await register({ ...data, rol });
 			if (response.status === 'Success') {
 				showSuccessAlert('¡Registrado!', 'Usuario registrado exitosamente.');
 				setTimeout(() => {
@@ -37,72 +37,83 @@ const Register = () => {
 	const patternRut = new RegExp(/^(?:(?:[1-9]\d{0}|[1-2]\d{1})(\.\d{3}){2}|[1-9]\d{6}|[1-2]\d{7}|29\.999\.999|29999999)-[\dkK]$/);
 
 	return (
-		<main className="container">
-			<Form
-				title="Crea tu cuenta"
-				fields={[
-					{
-						label: "Nombre completo",
-						name: "nombreCompleto",
-						placeholder: "Nombre Apellido",
-						fieldType: 'input',
-						type: "text",
-						required: true,
-						minLength: 15,
-						maxLength: 50,
-						pattern: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
-						patternMessage: "Debe contener solo letras y espacios",
-					},
-					{
-						label: "Correo electrónico",
-						name: "email",
-						placeholder: "example@gmail.cl",
-						fieldType: 'input',
-						type: "email",
-						required: true,
-						minLength: 15,
-						maxLength: 35,
-						errorMessageData: errorEmail,
-						validate: {
-							emailDomain: (value) => value.endsWith('@gmail.cl') || 'El correo debe terminar en @gmail.cl'
+		<main className="login-layout">
+			<div
+				className="login-left"
+				style={{
+					backgroundImage: `url('/fondo.png')`,
+					backgroundSize: 'cover',
+					backgroundPosition: 'center'
+				}}
+			></div>
+
+			<div className="login-right">
+				<Form
+					title="Crea tu cuenta"
+					fields={[
+						{
+							label: "Nombre completo",
+							name: "nombreCompleto",
+							placeholder: "Nombre Apellido",
+							fieldType: 'input',
+							type: "text",
+							required: true,
+							minLength: 15,
+							maxLength: 50,
+							pattern: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
+							patternMessage: "Debe contener solo letras y espacios",
 						},
-						onChange: (e) => handleInputChange('email', e.target.value)
-					},
-					{
-						label: "Rut",
-						name: "rut",
-						placeholder: "22.222.222-2",
-						fieldType: 'input',
-						type: "text",
-						minLength: 9,
-						maxLength: 12,
-						pattern: patternRut,
-						patternMessage: "Debe ser xx.xxx.xxx-x o xxxxxxxx-x",
-						required: true,
-						errorMessageData: errorRut,
-						onChange: (e) => handleInputChange('rut', e.target.value)
-					},
-					{
-						label: "Contraseña",
-						name: "password",
-						placeholder: "**********",
-						fieldType: 'input',
-						type: "password",
-						required: true,
-						minLength: 8,
-						maxLength: 26,
-						pattern: /^[a-zA-Z0-9]+$/,
-						patternMessage: "Debe contener solo letras y números",
-					},
-				]}
-				buttonText="Registrarse"
-				onSubmit={registerSubmit}
-				footerContent={
-					<p>
-						¿Ya tienes cuenta?, <a href="/auth">¡Inicia sesión aquí!</a>
-					</p>
-				}
-			/>
+						{
+							label: "Correo electrónico",
+							name: "email",
+							placeholder: "example@gmail.cl",
+							fieldType: 'input',
+							type: "email",
+							required: true,
+							minLength: 15,
+							maxLength: 35,
+							errorMessageData: errorEmail,
+							validate: {
+								emailDomain: (value) => value.endsWith('@gmail.cl') || 'El correo debe terminar en @gmail.cl'
+							},
+							onChange: (e) => handleInputChange('email', e.target.value)
+						},
+						{
+							label: "Rut",
+							name: "rut",
+							placeholder: "22.222.222-2",
+							fieldType: 'input',
+							type: "text",
+							minLength: 9,
+							maxLength: 12,
+							pattern: patternRut,
+							patternMessage: "Debe ser xx.xxx.xxx-x o xxxxxxxx-x",
+							required: true,
+							errorMessageData: errorRut,
+							onChange: (e) => handleInputChange('rut', e.target.value)
+						},
+						{
+							label: "Contraseña",
+							name: "password",
+							placeholder: "**********",
+							fieldType: 'input',
+							type: "password",
+							required: true,
+							minLength: 8,
+							maxLength: 26,
+							pattern: /^[a-zA-Z0-9]+$/,
+							patternMessage: "Debe contener solo letras y números",
+						},
+					]}
+					buttonText="Registrarse"
+					onSubmit={registerSubmit}
+					footerContent={
+						<p>
+							¿Ya tienes cuenta?, <a href="/auth">¡Inicia sesión aquí!</a>
+						</p>
+					}
+				/>
+			</div>
 		</main>
 	);
 };

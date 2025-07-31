@@ -1,19 +1,16 @@
-import { getUsuariosMasActivosService } from "../services/estadisticas.service.js";
+import { registrarVisitaService } from "../services/estadisticas.service.js";
 
-export const getUsuariosMasActivosController = async (req, res) => {
+export const registrarVisitaController = async (req, res) => {
   try {
-    const data = await getUsuariosMasActivosService();
-    res.status(200).json(data);
+    const publicacionId = parseInt(req.params.id);
+    if (isNaN(publicacionId)) {
+      return res.status(400).json({ message: "ID inválido" });
+    }
+
+    const response = await registrarVisitaService(publicacionId);
+    res.status(200).json(response);
   } catch (error) {
-    console.error("ERROR EN CONSULTA DE ESTADÍSTICAS:", error); // <--- muestra en consola
-    res.status(500).json({
-      message: "Error al obtener usuarios más activos",
-      error: {
-        message: error.message,
-        stack: error.stack,
-        query: error.query,
-        driverError: error.driverError
-      }
-    });
+    console.error("Error al registrar visita:", error);
+    res.status(500).json({ message: "Error al registrar visita", error: error.message });
   }
 };

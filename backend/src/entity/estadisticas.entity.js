@@ -13,6 +13,7 @@ const EstadisticaPublicacion = new EntitySchema({
     publicacion: {
       type: "one-to-one",
       target: "Publicacion",
+      inverseSide: "estadisticas",
       joinColumn: true,
       onDelete: "CASCADE"
     }

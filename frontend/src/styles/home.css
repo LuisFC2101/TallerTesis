@@ -25,7 +25,6 @@
   margin: 0 auto;
 }
 
-
 .publicacion-card {
   background: #fff;
   border-radius: 12px;
@@ -123,4 +122,28 @@
 
 .cta-boton:hover {
   background-color: #27ae60;
+}
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.pagina-btn {
+  padding: 6px 12px;
+  border: none;
+  background-color: #e3f1e7;
+  color: #064420;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.pagina-btn.activa {
+  background-color: #064420;
+  color: white;
 }

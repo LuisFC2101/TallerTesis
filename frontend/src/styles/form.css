@@ -1,8 +1,9 @@
 @media (max-width: 480px) {
   .form {
-  width: 90%;
-  max-width: unset; 
+    width: 90%;
+    max-width: unset;
   }
+
   .form h1 {
     font-size: 24px;
     margin-bottom: 2vh;
@@ -43,18 +44,19 @@
 
 /* FORMULARIO */
 .form {
-  background-color: rgba(63, 109, 52, 0.336); 
+  background-color: rgba(63, 109, 52, 0.336);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   padding: 30px;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  align-items: left;
+  align-items: flex-start;
   width: 100%;
-  max-width: 97%;
-  border:0px solid rgba(26, 82, 26, 0.35); 
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);   
+  max-width: 500px;
+  margin: 0 auto;
+  border: 0px solid rgba(26, 82, 26, 0.35);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: auto;
   box-sizing: border-box;
@@ -108,14 +110,12 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-
   background-color: rgba(255, 255, 255, 0.4);
   background-image: url('../assets/ChevronDownIcon.svg');
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 18px;
-
-  padding: 10px 40px 10px 10px; 
+  padding: 10px 40px 10px 10px;
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 12px;
   font-size: 16px;
@@ -123,7 +123,6 @@
   box-sizing: border-box;
   width: 100%;
 }
-
 
 .form button {
   padding: 1.2vh 0;
@@ -205,7 +204,7 @@
 
 .login-right {
   flex: 1;
-  background-color: rgba(243, 233, 233, 0.39); 
+  background-color: rgba(243, 233, 233, 0.39);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   display: flex;
@@ -214,6 +213,7 @@
   padding: 2rem;
   border-top-left-radius: 40px;
   border-bottom-left-radius: 40px;
+  height: 100vh;
 }
 
 .volver-inicio {
@@ -238,9 +238,7 @@
   color: #4CAF50;
 }
 
-
-
-/* RESPONSIVo */
+/* RESPONSIVO */
 @media (max-width: 768px) {
   .login-layout {
     flex-direction: column;

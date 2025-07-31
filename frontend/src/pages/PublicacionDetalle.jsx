@@ -16,6 +16,9 @@ const PublicacionDetalle = () => {
       try {
         const response = await axios.get(`/public/${id}`);
         setPublicacion(response.data);
+
+        // Registrar visita para cualquiera que acceda
+        await axios.patch(`/estadisticas/publicacion/${id}/visita`);
       } catch (err) {
         console.error("Error al obtener la publicación:", err);
         setError("No se pudo cargar la publicación.");
