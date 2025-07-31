@@ -40,11 +40,11 @@ const Users = () => {
   const userData = dataUser && dataUser.length > 0 ? dataUser[0] : {};
 
   const columns = [
-    { title: "Nombre", field: "nombreCompleto", width: 350, responsive: 0 },
-    { title: "Correo electrónico", field: "email", width: 300, responsive: 3 },
-    { title: "Rut", field: "rut", width: 150, responsive: 2 },
-    { title: "Rol", field: "rol", width: 200, responsive: 2 },
-    { title: "Creado", field: "createdAt", width: 200, responsive: 2 }
+    { title: "Nombre", field: "nombreCompleto", responsive: 0 },
+    { title: "Correo electrónico", field: "email", responsive: 3 },
+    { title: "Rut", field: "rut", responsive: 2 },
+    { title: "Rol", field: "rol", responsive: 2 },
+    { title: "Creado", field: "createdAt", responsive: 2 }
   ];
 
   return (
