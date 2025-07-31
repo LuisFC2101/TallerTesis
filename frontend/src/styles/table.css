@@ -1,20 +1,32 @@
-/* Contenedor general */
 .table-container {
   border-radius: 8px;
   padding: 16px;
-  background-color: #f1f8f4; /* verde muy suave como fondo para contraste con navbar */
+  background-color: #f1f8f4;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   overflow-x: auto;
   max-width: 100%;
 }
 
-/* Estilo base de la tabla Tabulator */
 .tabulator {
-  min-width: 700px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.tabulator-table {
+  width: auto !important;
+  min-width: unset !important;
+  table-layout: auto !important;
+}
+
+.tabulator-tableholder {
+  width: 100%;
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 .tabulator .tabulator-header {
-  background-color: #064420; /* mismo tono que el navbar */
+  background-color: #064420;
   color: white;
   font-weight: bold;
   font-size: 14px;
@@ -24,19 +36,22 @@
 
 .tabulator .tabulator-col {
   padding: 12px 8px;
-  background-color: #064420;
+  background-color: #1e7213be;
   color: white;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .tabulator .tabulator-header .tabulator-col .tabulator-col-title {
-  color: white;
+  color: rgb(76, 148, 74);
   font-weight: bold;
 }
 
 .tabulator .tabulator-row {
-  background-color: #b5dfc8; /* verde suave inspirado en la paleta del navbar */
+  background-color: #b5dfc8;
   font-size: 14px;
   transition: background-color 0.2s ease-in-out;
+  white-space: nowrap;
 }
 
 .tabulator .tabulator-row:nth-child(even) {
@@ -49,11 +64,10 @@
 }
 
 .tabulator .tabulator-cell {
-  padding: 12px 8px;
-  border: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Collapse responsivo */
 .tabulator-responsive-collapse {
   padding: 10px 16px;
   font-size: 14px;
@@ -65,7 +79,6 @@
   margin-bottom: 8px;
 }
 
-/* Paginación */
 .tabulator .tabulator-paginator label {
   display: none;
 }
@@ -92,8 +105,15 @@
   color: white;
 }
 
-.tabulator .tabulator-header .tabulator-col {
-  background-color: #1e7213be; 
-  font-weight: bold;
-  text-transform: uppercase;
+@media (max-width: 1024px) {
+  .tabulator .tabulator-cell {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+  .tabulator .tabulator-col {
+    font-size: 12px;
+  }
+  .tabulator .tabulator-header {
+    font-size: 12px;
+  }
 }

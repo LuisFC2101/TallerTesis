@@ -10,7 +10,6 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
 
     useEffect(() => {
         if (tableRef.current) {
-            // Usar setTimeout para esperar que el DOM esté listo
             setTimeout(() => {
                 const updatedColumns = [
                     { 
@@ -18,7 +17,7 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
                         titleFormatter: false, 
                         hozAlign: "center", 
                         headerSort: false, 
-                        width: 55, // Tamaño fijo en píxeles
+                        width: 55, 
                         cellClick: function (e, cell) {
                             cell.getRow().toggleSelect();
                         },
@@ -44,9 +43,15 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
                             const label = document.createElement("strong");
                             label.textContent = key + ": ";
                             row.appendChild(label);
-                            row.appendChild(document.createTextNode(
-                                typeof value === 'object' ? JSON.stringify(value) : value
-                            ));
+
+                            const displayValue = 
+                                value && typeof value === 'object' && 'value' in value
+                                    ? value.value
+                                    : typeof value === 'object'
+                                        ? JSON.stringify(value)
+                                        : value;
+
+                            row.appendChild(document.createTextNode(displayValue));
                             container.appendChild(row);
                         }
 
@@ -88,14 +93,14 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
                     setIsTableBuilt(false);
                     setTable(null);
                 };
-            }, 50); // Pequeño retraso para evitar errores de ancho
+            }, 50); 
         }
     }, []);
 
     useEffect(() => {
         if (table && isTableBuilt) {
             table.replaceData(data);
-            table.redraw(true); // Forzar redibujo tras actualizar los datos
+            table.redraw(true); 
         }
     }, [data, table, isTableBuilt]);
 
