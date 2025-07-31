@@ -22,8 +22,11 @@ const SolicitudRegistro = new EntitySchema({
     usuario: {
       type: "many-to-one",
       target: "User",
-      joinColumn: true,
-      eager: true
+      joinColumn: {
+        name: "usuarioId",
+      },
+      onDelete: "SET NULL",
+      nullable: true,
     },
     comuna: {
       type: "many-to-one",
