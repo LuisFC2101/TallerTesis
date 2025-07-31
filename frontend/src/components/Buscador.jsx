@@ -58,11 +58,13 @@ const Buscador = ({
         >
           <option value="">Todas las categorías</option>
           {Array.isArray(categorias) &&
-            categorias.map((cat) => (
-              <option key={cat.id} value={cat.nombre}>
-                {cat.nombre}
-              </option>
-            ))}
+            categorias
+              .filter((cat) => cat && cat.nombre)
+              .map((cat) => (
+                <option key={cat.id} value={cat.nombre}>
+                  {cat.nombre}
+                </option>
+              ))}
         </select>
 
         <select
@@ -71,11 +73,13 @@ const Buscador = ({
         >
           <option value="">Todas las comunas</option>
           {Array.isArray(comunas) &&
-            comunas.map((com) => (
-              <option key={com.id} value={com.nombre}>
-                {com.nombre}
-              </option>
-            ))}
+            comunas
+              .filter((com) => com && com.nombre)
+              .map((com) => (
+                <option key={com.id} value={com.nombre}>
+                  {com.nombre}
+                </option>
+              ))}
         </select>
 
         <button
@@ -85,7 +89,9 @@ const Buscador = ({
             setCategoriaSeleccionada("");
             setComunaSeleccionada("");
           }}
-          disabled={!busqueda && !categoriaSeleccionada && !comunaSeleccionada}
+          disabled={
+            !busqueda && !categoriaSeleccionada && !comunaSeleccionada
+          }
         >
           Limpiar filtros
         </button>

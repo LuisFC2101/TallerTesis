@@ -2,16 +2,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   margin: 2rem auto;
   max-width: 800px;
   padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .input-con-icono {
   position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: 600px;
 }
 
 .icono-busqueda {
@@ -29,10 +32,16 @@
   padding: 0.75rem 1rem 0.75rem 2.8rem;
   font-size: 1rem;
   border-radius: 999px;
-  border: 1px solid #ccc;
+  border: 1.5px solid #ccc;
   background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  color: #333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  color: #003366;
+  transition: border-color 0.2s ease;
+}
+
+.buscador-input:focus {
+  border-color: #367c45;
+  outline: none;
 }
 
 .buscador-filtros {
@@ -40,20 +49,47 @@
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+  width: 100%;
 }
 
-.buscador-filtros select,
-.btn-limpiar {
-  padding: 0.5rem 1rem;
+.buscador-filtros select {
+  padding: 0.6rem 1rem;
   font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  cursor: pointer;
+  border-radius: 12px;
+  border: 1.5px solid #ccc;
+  background-color: #ffffff;
+  color: #003366;
+  appearance: none;
+  background-image: url("../assets/ChevronDownIcon.svg");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  transition: border-color 0.2s ease;
+  width: 180px; 
+}
+
+.buscador-filtros select:focus {
+  border-color: #367c45;
+  outline: none;
+}
+
+.btn-limpiar {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: none;
+  background-color: #367c45;
+  color: #fff;
+  font-weight: 600;
   transition: background-color 0.2s ease;
 }
 
+.btn-limpiar:hover:not(:disabled) {
+  background-color: #2a5c3a;
+}
+
 .btn-limpiar:disabled {
-  background-color: #eee;
+  background-color: #ddd;
+  color: #888;
   cursor: not-allowed;
-  color: #999;
 }

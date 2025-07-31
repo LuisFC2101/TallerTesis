@@ -40,7 +40,12 @@ const Navbar = () => {
         {user?.rol === 'administrador' && (
           <li><NavLink to="/users">Usuarios</NavLink></li>
         )}
-
+        {user?.rol === "administrador" && (
+        <li>
+          <NavLink to="/solicitudes">Solicitudes</NavLink>
+        </li>
+        )}
+ 
         {user?.rol === 'emprendedor' && (
          <li>
           <NavLink to="/crear-publicacion">Crear publicación</NavLink>

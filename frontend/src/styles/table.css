@@ -1,14 +1,99 @@
-.table-container .tabulator .tabulator-col {
-    background-color: #003366;
-    color: #fff;
+/* Contenedor general */
+.table-container {
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #f1f8f4; /* verde muy suave como fondo para contraste con navbar */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+  max-width: 100%;
 }
-.tabulator .tabulator-footer .tabulator-page {
-    background-color: #fff;
-    color: black;
-    border: 1px solid #003366;
-    padding: 4px 8px;
-    border-radius: 4px;
+
+/* Estilo base de la tabla Tabulator */
+.tabulator {
+  min-width: 700px;
 }
-.tabulator .tabulator-footer .tabulator-page.active {
-    color: #E4332C;
+
+.tabulator .tabulator-header {
+  background-color: #064420; /* mismo tono que el navbar */
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #052e1d;
+}
+
+.tabulator .tabulator-col {
+  padding: 12px 8px;
+  background-color: #064420;
+  color: white;
+}
+
+.tabulator .tabulator-header .tabulator-col .tabulator-col-title {
+  color: white;
+  font-weight: bold;
+}
+
+.tabulator .tabulator-row {
+  background-color: #b5dfc8; /* verde suave inspirado en la paleta del navbar */
+  font-size: 14px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.tabulator .tabulator-row:nth-child(even) {
+  background-color: #a0d8b3;
+}
+
+.tabulator .tabulator-row:hover {
+  background-color: #d9f2e4;
+  cursor: pointer;
+}
+
+.tabulator .tabulator-cell {
+  padding: 12px 8px;
+  border: none;
+}
+
+/* Collapse responsivo */
+.tabulator-responsive-collapse {
+  padding: 10px 16px;
+  font-size: 14px;
+  background-color: #f4faf5;
+  border-top: 1px solid #cce3d1;
+}
+
+.tabulator-responsive-collapse > div {
+  margin-bottom: 8px;
+}
+
+/* Paginación */
+.tabulator .tabulator-paginator label {
+  display: none;
+}
+
+.tabulator .tabulator-paginator {
+  margin-top: 12px;
+  text-align: right;
+}
+
+.tabulator .tabulator-page,
+.tabulator .tabulator-page-size {
+  background-color: #d6eadf;
+  border: 1px solid #9ed7b3;
+  color: #064420;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin: 0 2px;
+  transition: all 0.3s ease;
+}
+
+.tabulator .tabulator-page.active {
+  background-color: #064420;
+  color: white;
+}
+
+.tabulator .tabulator-header .tabulator-col {
+  background-color: #1e7213be; 
+  font-weight: bold;
+  text-transform: uppercase;
 }

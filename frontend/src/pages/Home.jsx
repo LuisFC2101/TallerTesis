@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { getPublicaciones } from "../services/Publicaciones/getPublicaciones";
 import getCategorias from "../services/Categorias/getCategorias";
 import getComunas from "../services/Comunas/getComunas";
-import "../styles/index.css";
-import "../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import HeroSection from "../components/HeroSection";
 import Buscador from "../components/Buscador";
+import InfoPopup from "../components/InfoPopup"; 
+import "../styles/index.css";
+import "../styles/home.css";
 
 export default function Home() {
   const [publicaciones, setPublicaciones] = useState([]);
@@ -14,25 +15,24 @@ export default function Home() {
   const [categorias, setCategorias] = useState([]);
   const [comunas, setComunas] = useState([]);
   const [error, setError] = useState(null);
+  const [showInfoPopup, setShowInfoPopup] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     async function cargarDatos() {
       const [dataPub, errPub] = await getPublicaciones();
       const dataCat = await getCategorias();
-      const dataCom = await getComunas();
+      const [dataCom, errCom] = await getComunas();
 
-      if (errPub) {
-        setError(errPub);
-        setPublicaciones([]);
-        setPublicacionesFiltradas([]);
-      } else {
+      if (!errPub && Array.isArray(dataPub)) {
         setPublicaciones(dataPub);
         setPublicacionesFiltradas(dataPub);
+      } else {
+        setError(errPub);
       }
 
-      if (dataCat) setCategorias(dataCat);
-      if (dataCom) setComunas(dataCom);
+      if (Array.isArray(dataCat)) setCategorias(dataCat);
+      if (!errCom && Array.isArray(dataCom)) setComunas(dataCom);
     }
 
     cargarDatos();
@@ -94,10 +94,16 @@ export default function Home() {
         <p className="cta-subtitulo">
           Crea tu perfil y comienza a promocionar tu emprendimiento hoy mismo.
         </p>
-        <button className="cta-boton" onClick={() => navigate("/register-emprendedor")}>
+        <button className="cta-boton" onClick={() => setShowInfoPopup(true)}>
           Contáctanos
         </button>
       </section>
+
+      <InfoPopup show={showInfoPopup} setShow={setShowInfoPopup} title="Información de contacto">
+        <p>Si deseas más información, escríbenos a:</p>
+        <p><strong>📧 contacto@pewmatour.cl</strong></p>
+        <p><strong>📞 +56 9 1234 5678</strong></p>
+      </InfoPopup>
     </div>
   );
 }

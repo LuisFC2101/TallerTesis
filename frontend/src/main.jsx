@@ -10,10 +10,10 @@ import ProtectedRoute from '@components/ProtectedRoute';
 import '@styles/styles.css';
 import PublicacionDetalle from './pages/PublicacionDetalle';
 import SeleccionRol from '@pages/SeleccionRol';
-import RegisterEmprendedor from '@pages/RegisterEmprendedor';
 import CrearPublicacion from '@pages/CrearPublicacion';
 import MisPublicaciones from './pages/MisPublicaciones';
 import EditarPublicacion from './pages/EditarPublicacion';
+import Solicitudes from '@pages/Solicitudes'; 
 
 const router = createBrowserRouter([
 {
@@ -34,6 +34,14 @@ const router = createBrowserRouter([
       element: (
         <ProtectedRoute allowedRoles={['administrador']}>
           <Users />
+        </ProtectedRoute>
+      )
+    },
+    {
+      path: 'solicitudes',
+      element: (
+        <ProtectedRoute allowedRoles={['administrador']}>
+          <Solicitudes />
         </ProtectedRoute>
       )
     },
@@ -79,11 +87,8 @@ const router = createBrowserRouter([
   {
     path: '/seleccion-rol',
     element: <SeleccionRol />
-  },
-  {
-  path: '/register/emprendedor',
-  element: <RegisterEmprendedor />
-}
+  }
+  
 
 ]);
 

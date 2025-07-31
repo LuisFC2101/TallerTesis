@@ -31,6 +31,7 @@ export async function getSolicitudesService() {
   try {
     const solicitudRepository = AppDataSource.getRepository(Solicitud);
     const solicitudes = await solicitudRepository.find({
+      where: { estado: "pendiente" },
       relations: ["comuna"],
       order: { fechaSolicitud: "DESC" },
     });
@@ -58,24 +59,28 @@ export async function aceptarSolicitudService(id) {
       return [null, `La solicitud ya fue ${solicitud.estado}. No se puede aceptar nuevamente.`];
     }
 
-
     solicitud.estado = "aceptada";
     await solicitudRepository.save(solicitud);
 
     const rutLimpio = solicitud.rut.replace(/[^a-zA-Z0-9]/g, "");
+
     const newUser = userRepository.create({
       nombreCompleto: solicitud.nombre,
       rut: solicitud.rut,
       email: solicitud.email,
-      password: await encryptPassword(rutLimpio), // temporal
-      rol: "emprendedor",
+      password: await encryptPassword(rutLimpio),
+      rol: "emprendedor", // ✅ importante para que no sea null
     });
+
+    if (!newUser.rol) {
+      return [null, "El rol no puede ser nulo al crear el usuario"];
+    }
 
     await userRepository.save(newUser);
 
     return [newUser, null];
   } catch (error) {
-    console.error("Error al aceptar solicitud:", error);
+    console.error("Error al aceptar solicitud:", error.message, error.stack);
     return [null, "Error interno al aceptar la solicitud"];
   }
 }
@@ -88,10 +93,9 @@ export async function rechazarSolicitudService(id) {
     if (!solicitud) {
       return [null, "Solicitud no encontrada"];
     }
-    if (solicitud.estado == "aceptada") {
-      return [null, `La solicitud ya fue ${solicitud.estado}. No se puede rechazar, hagalo manualmente.`];
+    if (solicitud.estado === "aceptada") {
+      return [null, `La solicitud ya fue ${solicitud.estado}. No se puede rechazar, hágalo manualmente.`];
     }
-
 
     solicitud.estado = "rechazada";
     await solicitudRepository.save(solicitud);
