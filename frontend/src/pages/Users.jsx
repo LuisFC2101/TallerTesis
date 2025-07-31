@@ -11,7 +11,7 @@ import '@styles/users.css';
 import useEditUser from '@hooks/users/useEditUser';
 import useDeleteUser from '@hooks/users/useDeleteUser';
 import FormCrearEmprendedor from '../components/FormCrearEmprendedor';
-import Form from '@components/Form'; // Para edición de usuario
+import Form from '@components/Form'; 
 
 const Users = () => {
   const { users, fetchUsers, setUsers } = useUsers();

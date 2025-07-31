@@ -6,6 +6,7 @@ import { encryptPassword } from "../helpers/bcrypt.helper.js";
 
 export async function createSolicitudService(data) {
   try {
+    console.log("🧾 Datos recibidos en el backendzzzzzz:", data);
     const solicitudRepository = AppDataSource.getRepository(Solicitud);
 
     const nuevaSolicitud = solicitudRepository.create({
@@ -35,12 +36,14 @@ export async function getSolicitudesService() {
       relations: ["comuna"],
       order: { fechaSolicitud: "DESC" },
     });
+    console.log("🧾 Solicitudes que se envían al frontend:", solicitudes);
     return [solicitudes, null];
   } catch (error) {
     console.error("Error al obtener solicitudes:", error);
     return [null, "Error interno del servidor al obtener las solicitudes"];
   }
 }
+
 
 export async function aceptarSolicitudService(id) {
   try {
@@ -69,7 +72,7 @@ export async function aceptarSolicitudService(id) {
       rut: solicitud.rut,
       email: solicitud.email,
       password: await encryptPassword(rutLimpio),
-      rol: "emprendedor", // ✅ importante para que no sea null
+      rol: "emprendedor",
     });
 
     if (!newUser.rol) {

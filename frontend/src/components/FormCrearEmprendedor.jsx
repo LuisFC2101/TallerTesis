@@ -21,6 +21,7 @@ const FormCrearEmprendedor = ({ onClose }) => {
 
   const handleSubmit = async (data) => {
     try {
+      console.log("🔎 Datos enviados:", data);
       const response = await axios.post('/solicitudes', data);
       if (response.data) {
         showSuccessAlert('La solicitud fue registrada correctamente.');
