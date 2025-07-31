@@ -1,8 +1,12 @@
-import axios from '../root.service';
+import axios from '@services/root.service';
 
 const getComunas = async () => {
-  const response = await axios.get('/comunas');
-  return response.data;
+  try {
+    const response = await axios.get('/comunas');
+    return [response.data, null]; 
+  } catch (error) {
+    return [null, error];
+  }
 };
 
 export default getComunas;

@@ -89,3 +89,22 @@
         margin-right: 35px;
     }
 }
+.add-user-button {
+  background-color: #1b7e39;
+  color: rgb(38, 158, 58);
+  padding: 10px 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.add-user-button:hover {
+    background-color: #155f2c;
+}
+.add-user-button:disabled {
+  background-color: #3a9e30;
+  color: #4e9b43;
+  cursor: not-allowed;
+  opacity: 0.6;
+}

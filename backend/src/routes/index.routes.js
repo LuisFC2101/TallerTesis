@@ -7,7 +7,7 @@ import publicacionRoutes from "./publicacion.routes.js";
 import comunaRoutes from "./comuna.routes.js"; 
 import categoriaRoutes from "./categoria.routes.js";
 import emprendimientoRoutes from "./emprendimiento.routes.js";
-
+import estadisticasRoutes from "./estadisticas.routes.js";
 const router = Router();
 
 
@@ -18,5 +18,5 @@ router.use("/", publicacionRoutes)
 router.use("/", comunaRoutes)
 router.use("/", categoriaRoutes)
 router.use("/emprendimientos", emprendimientoRoutes)
-
+router.use("/estadisticas", estadisticasRoutes)
 export default router;
