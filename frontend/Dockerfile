@@ -12,7 +12,7 @@ RUN npm run build
 FROM node:18
 WORKDIR /app
 COPY --from=builder /app /app
-RUN npm install -g serve
+RUN npm install -g vite serve
 
 EXPOSE 4173
 
