@@ -1,9 +1,10 @@
 version: '3.8'
 
 services:
+  # Base de datos PostgreSQL
   postgres:
     image: postgres:15-alpine
-    container_name: reserva_equipos_db
+    container_name: pewmatur_db
     restart: unless-stopped
     environment:
       POSTGRES_DB: luisfcx
@@ -12,46 +13,46 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - app-network
 
+  # Backend PewmaTour
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: reserva_equipos_backend
+    container_name: pewmatur_backend
     restart: unless-stopped
     depends_on:
       - postgres
+    environment:
+      - NODE_ENV=development
     env_file:
-      - ./backend/.env
+      - ./backend/src/config/.env
     ports:
       - "3000:3000"
     networks:
       - app-network
-    volumes:
-      - ./backend:/app
 
+  # Frontend PewmaTour (Vite Preview con PM2)
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: reserva_equipos_frontend
+    container_name: pewmatur_frontend
     restart: unless-stopped
     depends_on:
       - backend
     environment:
-      - VITE_BASE_URL=http://localhost:3000/api
+      - VITE_BASE_URL=http://backend:3000/api
     ports:
       - "4173:4173"
     networks:
       - app-network
-    volumes:
-      - ./frontend:/app
 
 volumes:
-  pgdata:
+  postgres_data:
 
 networks:
   app-network:

@@ -1,21 +1,20 @@
-FROM node:18 as builder
+FROM node:18-alpine
+
+# Instalar PM2 globalmente
+RUN npm install -g pm2
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+
+RUN npm ci
+
 COPY . .
 
+# Construir el frontend
 RUN npm run build
-
-FROM node:18
-WORKDIR /app
-
-COPY --from=builder /app /app
-COPY --from=builder /app/node_modules /app/node_modules
-
-RUN npm install -g serve
 
 EXPOSE 4173
 
-CMD ["npm", "run", "preview"]
+# Usar Vite Preview con PM2 como hacías manualmente
+CMD ["pm2-runtime", "npm", "--", "run", "preview"]
