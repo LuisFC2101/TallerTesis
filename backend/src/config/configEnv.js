@@ -1,8 +1,9 @@
 "use strict";
 import dotenv from "dotenv";
 
-// Carga automaticamente .env desde la raíz del backend
-dotenv.config();
+
+dotenv.config({ path: "./src/config/.env" });
+
 
 export const PORT = process.env.PORT;
 export const HOST = process.env.HOST;
