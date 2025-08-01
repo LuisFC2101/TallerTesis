@@ -10,6 +10,7 @@ import { cookieKey, HOST, PORT } from "./config/configEnv.js";
 import { connectDB } from "./config/configDb.js";
 import "./config/initialSetup.js";
 import { passportJwtSetup } from "./auth/passport.auth.js";
+import { runInitialSetup } from "./config/initialSetup.js"; 
 
 async function setupServer() {
   try {
@@ -69,8 +70,10 @@ async function setupServer() {
 
 async function setupAPI() {
   try {
-    await connectDB();
-    await setupServer();
+    await connectDB();           
+    await runInitialSetup();     
+    await setupServer();         
+    console.log("=> API Iniciada exitosamente");
   } catch (error) {
     console.log("Error en index.js -> setupAPI(), el error es: ", error);
   }
