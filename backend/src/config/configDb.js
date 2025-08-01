@@ -1,6 +1,10 @@
-"use strict";
-import { DataSource } from "typeorm";
-import { DATABASE, DB_USERNAME, HOST, PASSWORD } from "./configEnv.js";
+import { User } from "../entity/user.entity.js";
+import { Categoria } from "../entity/categoria.entity.js";
+import { Comuna } from "../entity/comuna.entity.js";
+import { Emprendimiento } from "../entity/emprendimiento.entity.js";
+import { Publicacion } from "../entity/publicacion.entity.js";
+import { Solicitud } from "../entity/solicitud.entity.js";
+// importa todas las entidades necesarias
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -9,26 +13,7 @@ export const AppDataSource = new DataSource({
   username: DB_USERNAME,
   password: PASSWORD,
   database: DATABASE,
-  entities: ["src/entity/**/*.js"],
+  entities: [User, Categoria, Comuna, Emprendimiento, Publicacion, Solicitud],
   synchronize: true,
   logging: false,
 });
-
-export async function connectDB(retries = 5, delay = 3000) {
-  while (retries > 0) {
-    try {
-      await AppDataSource.initialize();
-      console.log("✅ Conexión exitosa a la base de datos!");
-      break;
-    } catch (error) {
-      console.error("⛔ Error al conectar con la base de datos:", error.message);
-      retries--;
-      if (retries === 0) {
-        console.error("❌ No se pudo conectar luego de varios intentos. Saliendo...");
-        process.exit(1);
-      }
-      console.log(`🔁 Reintentando en ${delay / 1000} segundos... (${retries} intentos restantes)`);
-      await new Promise(res => setTimeout(res, delay));
-    }
-  }
-}
