@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: luisfc
       POSTGRES_PASSWORD: lafc3367
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -17,7 +17,7 @@ services:
     build: ./backend
     restart: always
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       - db
     environment:
@@ -34,7 +34,7 @@ services:
     build:
       context: ./frontend
       args:
-        VITE_API_URL: http://146.83.194.168:3000
+        VITE_API_URL: http://192.168.0.9:3001
     restart: always
     ports:
       - "80:80"
