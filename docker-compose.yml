@@ -1,11 +1,9 @@
 version: '3.8'
 
 services:
-  # Base de datos PostgreSQL
-  postgres:
-    image: postgres:15-alpine
-    container_name: pewmatur_db
-    restart: unless-stopped
+  db:
+    image: postgres:15
+    restart: always
     environment:
       POSTGRES_DB: luisfcx
       POSTGRES_USER: luisfc
@@ -14,46 +12,34 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app-network
 
-  # Backend PewmaTour
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: pewmatur_backend
-    restart: unless-stopped
-    depends_on:
-      - postgres
-    environment:
-      - NODE_ENV=development
-    env_file:
-      - ./backend/src/config/.env
+    build: ./backend
+    restart: always
     ports:
       - "3000:3000"
-    networks:
-      - app-network
+    depends_on:
+      - db
+    environment:
+      PORT: 3000
+      HOST: db
+      DATABASE: luisfcx
+      DB_USERNAME: luisfc
+      PASSWORD: lafc3367
+      ACCESS_TOKEN_SECRET: equisdeequisde
+      cookieKey: dobleequisde
+    
 
-  # Frontend PewmaTour (Vite Preview con PM2)
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
-    container_name: pewmatur_frontend
-    restart: unless-stopped
+      args:
+        VITE_API_URL: http://146.83.194.168:3000
+    restart: always
+    ports:
+      - "80:80"
     depends_on:
       - backend
-    environment:
-      - VITE_BASE_URL=http://146.83.194.168:3000/api
-    ports:
-      - "4173:4173"
-    networks:
-      - app-network
 
 volumes:
   postgres_data:
-
-networks:
-  app-network:
-    driver: bridge

@@ -1,20 +1,19 @@
-FROM node:18-alpine
-
-# Instalar PM2 para preview
-RUN npm install -g pm2
+FROM node:18 AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci
-
 COPY . .
 
-# Construir la app antes de servirla
-RUN npm run build
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
 
-# Exponer el puerto usado por Vite Preview
-EXPOSE 4173
+RUN npm install && npm run build
 
-# Iniciar el servidor de preview en el puerto correcto
-CMD ["pm2-runtime", "npm", "--", "run", "preview", "--", "--port", "4173", "--host"]
+
+FROM nginx:alpine
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
